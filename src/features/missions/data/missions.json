@@ -1,0 +1,41 @@
+[
+  {
+    "id": "landing-page-rescue",
+    "title": "Landing Page Rescue",
+    "difficulty": "Easy",
+    "reward": 100,
+    "summary": "A client reports layout drift on mobile. Investigate the CSS and restore alignment.",
+    "objectives": [
+      "Fix navigation overflow",
+      "Fix card spacing",
+      "Maintain responsiveness"
+    ],
+    "track": "Frontend"
+  },
+  {
+    "id": "api-gateway-triage",
+    "title": "API Gateway Triage",
+    "difficulty": "Medium",
+    "reward": 140,
+    "summary": "Request timing is inconsistent across the service boundary. Trace the path and isolate the fault.",
+    "objectives": [
+      "Inspect request forwarding",
+      "Validate payload handling",
+      "Confirm stable error states"
+    ],
+    "track": "Backend"
+  },
+  {
+    "id": "state-sync-breach",
+    "title": "State Sync Breach",
+    "difficulty": "Medium",
+    "reward": 150,
+    "summary": "The HUD desyncs after rapid updates. Reconcile the state flow and preserve the game loop.",
+    "objectives": [
+      "Stabilize state updates",
+      "Prevent stale renders",
+      "Keep the UI responsive"
+    ],
+    "track": "Frontend"
+  }
+]
