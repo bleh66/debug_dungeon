@@ -2,4 +2,8 @@ node_modules
 dist
 .vscode
 .DS_Store
+<<<<<<< HEAD
 *.tsbuildinfo
+=======
+*.tsbuildinfo
+>>>>>>> 13c3ee7c1f4d0b2c2c091a988e50a55fc67df71f
