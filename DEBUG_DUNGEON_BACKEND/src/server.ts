@@ -4,7 +4,7 @@ import { assertProductionConfiguration, getPort } from "./config/runtime.js";
 assertProductionConfiguration();
 const PORT = getPort();
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`Debug Dungeon backend listening on port ${PORT}`);
 });
 
