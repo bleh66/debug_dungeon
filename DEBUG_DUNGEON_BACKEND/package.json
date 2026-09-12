@@ -1,0 +1,53 @@
+{
+  "name": "debug_dungeon_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "generate": "prisma generate",
+    "build": "npm run generate && tsc",
+    "start": "node dist/src/server.js",
+    "seed": "tsx prisma/seed.ts",
+    "test:gameplay": "tsx prisma/test-gameplay.ts",
+    "test:answers": "tsx --test tests/answer-submission.test.ts",
+    "test:completion": "tsx --test tests/mission-completion.test.ts",
+    "test:active-attempts": "tsx --test tests/active-mission-attempt.test.ts",
+    "test:progress": "tsx --test tests/progress-performance.test.ts",
+    "test:xp": "tsx --test tests/xp-accounting.test.ts",
+    "test:learning-profile": "tsx --test tests/learning-profile.test.ts",
+    "test:generator": "tsx --test tests/mission-generator.test.ts",
+    "test:authorization": "tsx --test tests/role-authorization.test.ts",
+    "test:validator": "tsx --test tests/mission-validator.test.ts",
+    "test:pipeline": "tsx --test tests/mission-pipeline.test.ts",
+    "test:recommendations": "tsx --test tests/recommendations.test.ts",
+    "test:audit": "tsx --test tests/api-audit.test.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.9.0",
+    "@prisma/client": "^7.9.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.22.0",
+    "prisma": "^7.9.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^26.1.0",
+    "@types/pg": "^8.20.0",
+    "nodemon": "^3.1.14",
+    "tsx": "^4.23.12",
+    "typescript": "^6.0.3"
+  }
+}

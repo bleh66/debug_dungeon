@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MissionStatus {
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum UserRole {
+  PLAYER
+  ADMIN
+}
+
+model User {
+  id           String            @id @default(cuid())
+  email        String            @unique
+  passwordHash String
+  role         UserRole          @default(PLAYER)
+  xp           Int               @default(0)
+  createdAt    DateTime          @default(now())
+  progress     MissionProgress[]
+}
+
+model Mission {
+  id            String     @id @default(cuid())
+  title         String
+  topic         String
+  difficulty    Difficulty
+  missionNumber Int        @unique
+
+  questions Question[]
+  progress  MissionProgress[]
+}
+
+model Question {
+  id          String  @id @default(cuid())
+  missionId   String
+  text        String
+  explanation String?
+  xpReward    Int     @default(10)
+  concept     String
+
+  mission  Mission           @relation(fields: [missionId], references: [id])
+  options  Option[]
+  attempts QuestionAttempt[]
+}
+
+model Option {
+  id           String  @id @default(cuid())
+  questionId   String
+  text         String
+  isCorrect    Boolean
+  displayOrder Int
+
+  question Question @relation(fields: [questionId], references: [id])
+
+  selectedIn QuestionAttempt[]
+
+  @@unique([questionId, displayOrder])
+}
+
+model MissionProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  missionId   String
+  completedAt DateTime?
+  bestScore   Int?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user     User             @relation(fields: [userId], references: [id])
+  mission  Mission          @relation(fields: [missionId], references: [id])
+  attempts MissionAttempt[]
+
+  @@unique([userId, missionId])
+}
+
+model MissionAttempt {
+  id                String        @id @default(cuid())
+  missionProgressId String
+  status            MissionStatus @default(IN_PROGRESS)
+  score             Int?
+  xpEarned          Int           @default(0)
+  startedAt         DateTime      @default(now())
+  completedAt       DateTime?
+
+  missionProgress  MissionProgress   @relation(fields: [missionProgressId], references: [id])
+  questionAttempts QuestionAttempt[]
+
+  @@index([missionProgressId, status])
+}
+
+model QuestionAttempt {
+  id               String   @id @default(cuid())
+  missionAttemptId String
+  questionId       String
+  selectedOptionId String
+  isCorrect        Boolean
+  attemptedAt      DateTime @default(now())
+
+  missionAttempt MissionAttempt @relation(fields: [missionAttemptId], references: [id])
+
+  question Question @relation(fields: [questionId], references: [id])
+
+  selectedOption Option @relation(fields: [selectedOptionId], references: [id])
+
+  @@unique([missionAttemptId, questionId])
+}
